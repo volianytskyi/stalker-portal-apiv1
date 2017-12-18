@@ -7,11 +7,10 @@
  */
 
 use Rest\Rest;
+use Exceptions\StalkerPortalException;
 
-abstract class Base
+class StalkerPortal
 {
-    protected $resource;
-
     protected $api;
     public function __construct(Rest $api)
     {
@@ -24,7 +23,7 @@ abstract class Base
      * @return array|null
      * @throws StalkerPortalException
      */
-    final protected function decodeAnswer($jsonString)
+    protected function decodeAnswer($jsonString)
     {
         $answer = json_decode($jsonString, true);
 
@@ -45,7 +44,7 @@ abstract class Base
      * @return bool
      * @throws StalkerPortalException
      */
-    final public function checkConnection()
+    public function checkConnection()
     {
         try
         {
