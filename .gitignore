@@ -1,1 +1,4 @@
 .idea/
+/index.php
+/vendor/*
+./composer.json

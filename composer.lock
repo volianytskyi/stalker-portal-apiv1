@@ -1,0 +1,48 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "f5ae460ddc9db8cca27c6b0c8b4b2974",
+    "packages": [
+        {
+            "name": "volyanytsky/model",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/volyanytsky/model/",
+                "reference": "2aab7c73597815772fdf8a32d1b5d2a71707e649"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Model\\": "src/"
+                }
+            },
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Volyanytsky",
+                    "email": "sergey.volyanytsky@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Abstract model with array of properties and their filters",
+            "homepage": "https://github.com/volyanytsky",
+            "time": "2017-12-19T13:15:15+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "volyanytsky/model": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
