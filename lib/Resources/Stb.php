@@ -14,7 +14,7 @@ class Stb extends BaseResource
 {
     public function getFields()
     {
-        return ['mac', 'ls', 'login', 'online', 'ip', 'version', 'additional_services_on', 'last_active'];
+        return ['mac', 'ls', 'login', 'password', 'online', 'ip', 'version', 'additional_services_on', 'last_active'];
     }
 
     protected $filters = [

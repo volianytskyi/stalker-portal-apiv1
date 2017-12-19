@@ -19,13 +19,13 @@ class Rest implements RestInterface
      * @param string $url
      * @param string $login
      * @param string $password
-     * @throws Exception invalid URL
+     * @throws \Exception invalid URL
      */
     public function __construct($url, $login = '', $password = '')
     {
         if(!filter_var($url, FILTER_VALIDATE_URL))
         {
-            throw new Exception("Incorrect URL value", 1);
+            throw new \Exception("Incorrect URL value", 1);
         }
 
         ($url[strlen($url) - 1] === '/') ? $this->url = $url : $this->url = $url.'/'; //url must ends with /
@@ -36,7 +36,7 @@ class Rest implements RestInterface
     /**
      * @param $resource
      * @param string $id
-     * @return array
+     * @return string
      */
     public function get($resource, $id = '')
     {
@@ -113,7 +113,7 @@ class Rest implements RestInterface
     /**
      * @param array $opts
      * @param $resource
-     * @return array|null
+     * @return string|null
      * @throws StalkerPortalApiExeption
      */
     private function getAnswer(array $opts, $resource)

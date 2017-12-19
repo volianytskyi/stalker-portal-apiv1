@@ -13,6 +13,7 @@ interface Stb
     public function getMac();
     public function getPersonalAccount();
     public function getLogin();
+    public function getPassword();
     public function getStatus();
     public function isOnline();
     public function getIp();
