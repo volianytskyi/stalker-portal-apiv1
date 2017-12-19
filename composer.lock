@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/volyanytsky/model/",
-                "reference": "2aab7c73597815772fdf8a32d1b5d2a71707e649"
+                "reference": "23b1a51ddee53d7b8db70e8cbd80897aae79e93e"
             },
             "type": "library",
             "autoload": {
@@ -32,7 +32,7 @@
             ],
             "description": "Abstract model with array of properties and their filters",
             "homepage": "https://github.com/volyanytsky",
-            "time": "2017-12-19T13:15:15+00:00"
+            "time": "2017-12-19T16:10:59+00:00"
         }
     ],
     "packages-dev": [],

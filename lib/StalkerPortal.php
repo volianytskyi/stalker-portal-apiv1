@@ -6,8 +6,12 @@
  * Time: 23:34
  */
 
-use Rest\Rest;
-use Exceptions\StalkerPortalException;
+namespace StalkerPortal\ApiV1;
+
+use StalkerPortal\ApiV1\Resources\BaseResource;
+use StalkerPortal\ApiV1\Rest\Rest;
+use StalkerPortal\ApiV1\Exceptions\StalkerPortalException;
+use StalkerPortal\ApiV1\Resources\Stb;
 
 class StalkerPortal
 {
@@ -61,5 +65,27 @@ class StalkerPortal
         }
 
         return false;
+    }
+    
+    private function setResourceFromRawPortalData(BaseResource $resource, array $data)
+    {
+        foreach ($data as $key => $value)
+        {
+            $resource->set($key, $value);
+        }
+        return $resource;
+    }
+    
+    public function getStbList()
+    {
+        $list = $this->decodeAnswer($this->api->get("stb"));
+        //return $list;
+        $stbs = [];
+        foreach ($list as $stbData) 
+        {
+            $stb = $this->setResourceFromRawPortalData(new Stb(), $stbData);
+            $stbs[] = $stb;
+        }
+        return $stbs;
     }
 }

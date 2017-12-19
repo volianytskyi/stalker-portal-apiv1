@@ -6,54 +6,21 @@
  * Time: 00:14
  */
 
-namespace Resources;
-use Interfaces\Stb as StbInterface;
+namespace StalkerPortal\ApiV1\Resources;
 
-class Stb implements StbInterface
+use StalkerPortal\ApiV1\Resources\BaseResource;
+
+class Stb extends BaseResource
 {
-
-    public function getMac()
+    public function getFields()
     {
-        // TODO: Implement getMac() method.
+        return ['mac', 'ls', 'login', 'online', 'ip', 'version', 'additional_services_on', 'last_active'];
     }
 
-    public function getPersonalAccount()
-    {
-        // TODO: Implement getPersonalAccount() method.
-    }
+    protected $filters = [
+        'mac' => FILTER_VALIDATE_MAC,
+        'online' => FILTER_VALIDATE_BOOLEAN,
+        'ip' => FILTER_VALIDATE_IP
+    ];
 
-    public function getLogin()
-    {
-        // TODO: Implement getLogin() method.
-    }
-
-    public function getStatus()
-    {
-        // TODO: Implement getStatus() method.
-    }
-
-    public function isOnline()
-    {
-        // TODO: Implement isOnline() method.
-    }
-
-    public function getIp()
-    {
-        // TODO: Implement getIp() method.
-    }
-
-    public function getVersion()
-    {
-        // TODO: Implement getVersion() method.
-    }
-
-    public function areAdditionalServicesOn()
-    {
-        // TODO: Implement areAdditionalServicesOn() method.
-    }
-
-    public function getLastActivityTime()
-    {
-        // TODO: Implement getLastActivityTime() method.
-    }
 }

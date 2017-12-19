@@ -5,7 +5,7 @@
  * Time: 23:06
  */
 
-namespace Rest;
+namespace StalkerPortal\ApiV1\Rest;
 
 
 interface RestInterface

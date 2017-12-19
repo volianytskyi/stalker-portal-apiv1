@@ -5,7 +5,7 @@
  * Time: 00:10
  */
 
-namespace Interfaces;
+namespace StalkerPortal\ApiV1\Interfaces;
 
 
 interface Stb

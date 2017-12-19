@@ -5,7 +5,7 @@
  * Time: 23:11
  */
 
-namespace Rest;
+namespace StalkerPortal\ApiV1\Rest;
 
 
 class Rest implements RestInterface
