@@ -15,6 +15,9 @@ use StalkerPortal\ApiV1\Resources\Stb;
 use StalkerPortal\ApiV1\Interfaces\Stb as StbInterface;
 use StalkerPortal\ApiV1\Resources\Account;
 use StalkerPortal\ApiV1\Interfaces\Account as AccountInterface;
+use StalkerPortal\ApiV1\Resources\User;
+use StalkerPortal\ApiV1\Interfaces\User as UserInterface;
+use StalkerPortal\ApiV1\Resources\IUser;
 
 class StalkerPortal
 {
@@ -104,6 +107,19 @@ class StalkerPortal
         }
         return $checkedValue;
     }
+
+    protected function deleteIUser($id, IUser $user)
+    {
+        $this->throwIfPortalUnreachable();
+        return $this->api->delete($user->getResource(), $id);
+    }
+
+    protected function getIUser($id, IUser $user)
+    {
+        $this->throwIfPortalUnreachable();
+        $data = $this->decodeAnswer($this->api->get($user->getResource(), $id));
+        return $this->setResourceFromRawPortalData($user, $data);
+    }
     
     public function getAllStb()
     {
@@ -141,12 +157,9 @@ class StalkerPortal
      */
     public function getStbByMac($mac)
     {
-        $this->throwIfPortalUnreachable();
         $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
-        $stbData = $this->decodeAnswer($this->api->get("stb", $macAddress));
-        return $this->setResourceFromRawPortalData(new Stb(), $stbData);
+        return $this->getIUser($macAddress, new Stb());
     }
-
 
     /**
      * @param StbInterface $stb
@@ -169,9 +182,8 @@ class StalkerPortal
      */
     public function deleteStbByMac($mac)
     {
-        $this->throwIfPortalUnreachable();
         $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
-        return $this->api->delete("stb", $macAddress);
+        return $this->deleteIUser($macAddress, new Stb());
     }
 
     /**
@@ -233,10 +245,8 @@ class StalkerPortal
      */
     public function getAccountByMac($mac)
     {
-        $this->throwIfPortalUnreachable();
         $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
-        $accData = $this->decodeAnswer($this->api->get("accounts", $macAddress));
-        return $this->setResourceFromRawPortalData(new Account(), $accData);
+        return $this->getIUser($macAddress, new Account());
     }
 
 
@@ -277,16 +287,15 @@ class StalkerPortal
         return $this->api->put("accounts/".$account->getMac(), $data);
     }
 
-    /**
+    /**accounts
      * @param string $mac
      * @return bool
      * Deletes single customer
      */
     public function deleteAccountByMac($mac)
     {
-        $this->throwIfPortalUnreachable();
         $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
-        return $this->api->delete("accounts", $macAddress);
+        return $this->deleteIUser($macAddress, new Account());
     }
 
     /**
@@ -296,15 +305,10 @@ class StalkerPortal
      */
     public function deleteAccountByNumber($accountNumber)
     {
-        $this->throwIfPortalUnreachable();
-        return $this->api->delete("accounts", $accountNumber);
+        return $this->deleteIUser($accountNumber, new Account());
     }
 
-    /**
-     * @param AccountInterface $account
-     * @return bool
-     */
-    public function addAccount(AccountInterface $account)
+    protected function addAccountOrUser(AccountInterface $account, $resource)
     {
         $this->throwIfPortalUnreachable();
         $data = [];
@@ -319,7 +323,109 @@ class StalkerPortal
         $data['end_date'] = $account->getExpireDate();
         $data['account_balance'] = $account->getAccountBalance();
 
-        return $this->api->post("accounts", $data);
+        return $this->api->post($resource, $data);
+    }
+
+    /**
+     * @param AccountInterface $account
+     * @return bool
+     */
+    public function addAccount(AccountInterface $account)
+    {
+        $this->addAccountOrUser($account, 'accounts');
+    }
+
+
+    /**
+     * @param string $login
+     * @return array
+     */
+    public function getUserByLogin($login)
+    {
+        return $this->getIUser($login, new User());
+    }
+
+    /**
+     * @param string $mac
+     * @return User
+     */
+    public function getUserByMac($mac)
+    {
+        $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
+        return $this->getIUser($macAddress, new User());
+    }
+
+
+    /**
+     * @param UserInterface $user
+     * @return bool
+     * Updates password, full_name, account_number, tariff_plan, status, comment, e
+nd_date, account_balance of a single customer
+     */
+    public function updateUserByMac(UserInterface $user)
+    {
+        $this->throwIfPortalUnreachable();
+        $data = [];
+        $data['password'] = $user->getPassword();
+        $data['full_name'] = $user->getFullName();
+        $data['account_number'] = $user->getAccountNumber();
+        $data['tariff_plan'] = $user->getTariffPlanExternalId();
+        $data['status'] = $user->getStatus();
+        $data['comment'] = $user->getComment();
+        $data['end_date'] = $user->getExpireDate();
+        $data['account_balance'] = $user->getAccountBalance();
+        return $this->api->put("users/".$user->getMac(), $data);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return bool
+     * Updates stb_mac, password, full_name, account_number, tariff_plan, status, comment, end_date, account_balance of a single customer
+     */
+    public function updateUserByLogin(UserInterface $user)
+    {
+        $this->throwIfPortalUnreachable();
+        $data = [];
+        $data['stb_mac'] = $user->getMac();
+        $data['password'] = $user->getPassword();
+        $data['full_name'] = $user->getFullName();
+        $data['account_number'] = $user->getAccountNumber();
+        $data['tariff_plan'] = $user->getTariffPlanExternalId();
+        $data['status'] = $user->getStatus();
+        $data['comment'] = $user->getComment();
+        $data['end_date'] = $user->getExpireDate();
+        $data['account_balance'] = $user->getAccountBalance();
+        return $this->api->put("users/".$user->getLogin(), $data);
+    }
+
+    /**
+     * @param string $mac
+     * @return bool
+     * Deletes single customer
+     */
+    public function deleteUserByMac($mac)
+    {
+        $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
+        return $this->deleteIUser($macAddress, new User());
+    }
+
+    /**
+     * @param string $accountNumber
+     * @return bool
+     * Deletes the account with all customers
+     */
+    public function deleteUserByLogin($login)
+    {
+        return $this->deleteIUser($login, new User());
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
+    public function addUser(UserInterface $user)
+    {
+        $this->addAccountOrUser($user, 'users');
     }
 
 

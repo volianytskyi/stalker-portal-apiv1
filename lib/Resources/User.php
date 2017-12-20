@@ -9,11 +9,11 @@ namespace StalkerPortal\ApiV1\Resources;
 use StalkerPortal\ApiV1\Resources\BaseResource;
 use StalkerPortal\ApiV1\Resources\IUser;
 
-class Account extends BaseResource implements IUser
+class User extends BaseResource implements IUser
 {
     public function getResource()
     {
-        return 'accounts';
+        return 'users';
     }
 
     public function getFields()
