@@ -15,9 +15,5 @@ interface Stb
     public function getLogin();
     public function getPassword();
     public function getStatus();
-    public function isOnline();
-    public function getIp();
-    public function getVersion();
     public function areAdditionalServicesOn();
-    public function getLastActivityTime();
 }

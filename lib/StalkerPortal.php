@@ -13,6 +13,8 @@ use StalkerPortal\ApiV1\Rest\Rest;
 use StalkerPortal\ApiV1\Exceptions\StalkerPortalException;
 use StalkerPortal\ApiV1\Resources\Stb;
 use StalkerPortal\ApiV1\Interfaces\Stb as StbInterface;
+use StalkerPortal\ApiV1\Resources\Account;
+use StalkerPortal\ApiV1\Interfaces\Account as AccountInterface;
 
 class StalkerPortal
 {
@@ -136,7 +138,6 @@ class StalkerPortal
     /**
      * @param string $mac
      * @return Stb
-     * @throws StalkerPortalException
      */
     public function getStbByMac($mac)
     {
@@ -147,6 +148,10 @@ class StalkerPortal
     }
 
 
+    /**
+     * @param StbInterface $stb
+     * @return bool
+     */
     public function updateStb(StbInterface $stb)
     {
         $this->throwIfPortalUnreachable();
@@ -169,6 +174,10 @@ class StalkerPortal
         return $this->api->delete("stb", $macAddress);
     }
 
+    /**
+     * @param StbInterface $stb
+     * @return bool
+     */
     public function addStb(StbInterface $stb)
     {
         $this->throwIfPortalUnreachable();
@@ -181,6 +190,136 @@ class StalkerPortal
         $data['ls'] = $stb->getPersonalAccount();
 
         return $this->api->post("stb", $data);
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getAllAccounts()
+    {
+        $this->throwIfPortalUnreachable();
+        $allData = $this->decodeAnswer($this->api->get("accounts"));
+        $accounts = [];
+        foreach ($allData as $accData)
+        {
+            $account = $this->setResourceFromRawPortalData(new Account(), $accData);
+            $accounts[] = $account;
+        }
+        return $accounts;
+    }
+
+    /**
+     * @param string $ls
+     * @return array
+     */
+    public function getAccountByNumber($accountNumber)
+    {
+        $this->throwIfPortalUnreachable();
+        $allData = $this->decodeAnswer($this->api->get("accounts", $accountNumber));
+        $accounts = [];
+        foreach ($allData as $accData)
+        {
+            $account = $this->setResourceFromRawPortalData(new Account(), $accData);
+            $accounts[] = $account;
+        }
+        return $accounts;
+    }
+
+    /**
+     * @param string $mac
+     * @return Account
+     * @throws StalkerPortalException
+     */
+    public function getAccountByMac($mac)
+    {
+        $this->throwIfPortalUnreachable();
+        $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
+        $accData = $this->decodeAnswer($this->api->get("accounts", $macAddress));
+        return $this->setResourceFromRawPortalData(new Account(), $accData);
+    }
+
+
+    /**
+     * @param AccountInterface $account
+     * @return bool
+     * Updates tariff_plan, status, comment, end_date, account_balance of all users in the account
+     */
+    public function updateAccountByNumber(AccountInterface $account)
+    {
+        $this->throwIfPortalUnreachable();
+        $data = [];
+        $data['tariff_plan'] = $account->getTariffPlanExternalId();
+        $data['status'] = $account->getStatus();
+        $data['comment'] = $account->getComment();
+        $data['end_date'] = $account->getExpireDate();
+        $data['account_balance'] = $account->getAccountBalance();
+        return $this->api->put("accounts/".$account->getAccountNumber(), $data);
+    }
+
+    /**
+     * @param AccountInterface $account
+     * @return bool
+     * Updates password, full_name, account_number, tariff_plan, status, comment, end_date, account_balance of a single customer
+     */
+    public function updateAccountByMac(AccountInterface $account)
+    {
+        $this->throwIfPortalUnreachable();
+        $data = [];
+        $data['password'] = $account->getPassword();
+        $data['full_name'] = $account->getFullName();
+        $data['account_number'] = $account->getAccountNumber();
+        $data['tariff_plan'] = $account->getTariffPlanExternalId();
+        $data['status'] = $account->getStatus();
+        $data['comment'] = $account->getComment();
+        $data['end_date'] = $account->getExpireDate();
+        $data['account_balance'] = $account->getAccountBalance();
+        return $this->api->put("accounts/".$account->getMac(), $data);
+    }
+
+    /**
+     * @param string $mac
+     * @return bool
+     * Deletes single customer
+     */
+    public function deleteAccountByMac($mac)
+    {
+        $this->throwIfPortalUnreachable();
+        $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
+        return $this->api->delete("accounts", $macAddress);
+    }
+
+    /**
+     * @param string $accountNumber
+     * @return bool
+     * Deletes the account with all customers
+     */
+    public function deleteAccountByNumber($accountNumber)
+    {
+        $this->throwIfPortalUnreachable();
+        return $this->api->delete("accounts", $accountNumber);
+    }
+
+    /**
+     * @param AccountInterface $account
+     * @return bool
+     */
+    public function addAccount(AccountInterface $account)
+    {
+        $this->throwIfPortalUnreachable();
+        $data = [];
+        $data['login'] = $account->getLogin();
+        $data['password'] = $account->getPassword();
+        $data['full_name'] = $account->getFullName();
+        $data['account_number'] = $account->getAccountNumber();
+        $data['tariff_plan'] = $account->getTariffPlanExternalId();
+        $data['status'] = $account->getStatus();
+        $data['stb_mac'] = $account->getMac();
+        $data['comment'] = $account->getComment();
+        $data['end_date'] = $account->getExpireDate();
+        $data['account_balance'] = $account->getAccountBalance();
+
+        return $this->api->post("accounts", $data);
     }
 
 
