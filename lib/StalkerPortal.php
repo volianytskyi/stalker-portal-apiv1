@@ -68,12 +68,20 @@ class StalkerPortal
         return false;
     }
 
+    protected function throwIfPortalUnreachable()
+    {
+        if($this->checkConnection() === false)
+        {
+            throw new StalkerPortalException($this->api->getUrl() . " is unreachable");
+        }
+    }
+
     /**
      * @param BaseResource $resource
      * @param array $data
      * @return BaseResource
      */
-    private function setResourceFromRawPortalData(BaseResource $resource, array $data)
+    protected function setResourceFromRawPortalData(BaseResource $resource, array $data)
     {
         foreach ($data as $key => $value)
         {
@@ -85,7 +93,7 @@ class StalkerPortal
         return $resource;
     }
 
-    private function checkValue($value, $filter)
+    protected function checkValue($value, $filter)
     {
         $checkedValue = filter_var($value, $filter);
         if($checkedValue === false)
@@ -97,6 +105,7 @@ class StalkerPortal
     
     public function getAllStb()
     {
+        $this->throwIfPortalUnreachable();
         $list = $this->decodeAnswer($this->api->get("stb"));
         $stbs = [];
         foreach ($list as $stbData) 
@@ -113,6 +122,7 @@ class StalkerPortal
      */
     public function getStbByPersonalAccount($ls)
     {
+        $this->throwIfPortalUnreachable();
         $list = $this->decodeAnswer($this->api->get("stb", $ls));
         $stbs = [];
         foreach ($list as $stbData)
@@ -130,26 +140,16 @@ class StalkerPortal
      */
     public function getStbByMac($mac)
     {
+        $this->throwIfPortalUnreachable();
         $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
         $stbData = $this->decodeAnswer($this->api->get("stb", $macAddress));
         return $this->setResourceFromRawPortalData(new Stb(), $stbData);
     }
 
-    /**
-     * @param StbInterface $stb
-     * @return null|Stb
-     */
-    public function getStb(StbInterface $stb)
-    {
-        if(!empty($stb->getMac()))
-        {
-            return $this->getStbByMac($stb->getMac());
-        }
-        return null;
-    }
 
     public function updateStb(StbInterface $stb)
     {
+        $this->throwIfPortalUnreachable();
         $data = [];
         $data['status'] = $stb->getStatus();
         $data['password'] = $stb->getPassword();
@@ -164,21 +164,14 @@ class StalkerPortal
      */
     public function deleteStbByMac($mac)
     {
+        $this->throwIfPortalUnreachable();
         $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
         return $this->api->delete("stb", $macAddress);
     }
 
-    /**
-     * @param StbInterface $stb
-     * @return bool
-     */
-    public function deleteStb(StbInterface $stb)
-    {
-        return $this->deleteStbByMac($stb->getMac());
-    }
-
     public function addStb(StbInterface $stb)
     {
+        $this->throwIfPortalUnreachable();
         $data = [];
         $data['mac'] = $stb->getMac();
         $data['login'] = $stb->getLogin();

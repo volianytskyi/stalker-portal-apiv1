@@ -23,14 +23,24 @@ class Rest implements RestInterface
      */
     public function __construct($url, $login = '', $password = '')
     {
+        $this->setUrl($url);
+        $this->login = $login;
+        $this->password = $password;
+    }
+
+    public function setUrl($url)
+    {
         if(!filter_var($url, FILTER_VALIDATE_URL))
         {
-            throw new \Exception("Incorrect URL value", 1);
+            throw new \Exception("Incorrect URL: $url", 1);
         }
 
         ($url[strlen($url) - 1] === '/') ? $this->url = $url : $this->url = $url.'/'; //url must ends with /
-        $this->login = $login;
-        $this->password = $password;
+    }
+
+    public function getUrl()
+    {
+        return $this->url;
     }
 
     /**
