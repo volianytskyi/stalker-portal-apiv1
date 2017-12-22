@@ -111,7 +111,7 @@ class StalkerPortal
     protected function deleteIUser($id, IUser $user)
     {
         $this->throwIfPortalUnreachable();
-        return $this->api->delete($user->getResource(), $id);
+        return $this->decodeAnswer($this->api->delete($user->getResource(), $id));
     }
 
     protected function getIUser($id, IUser $user)
@@ -173,7 +173,7 @@ class StalkerPortal
         $data['password'] = $stb->getPassword();
         $data['additional_services_on'] = $stb->areAdditionalServicesOn();
         $data['ls'] = $stb->getPersonalAccount();
-        return $this->api->put("stb/".$stb->getMac(), $data);
+        return $this->decodeAnswer($this->api->put("stb/".$stb->getMac(), $data));
     }
 
     /**
@@ -201,7 +201,7 @@ class StalkerPortal
         $data['additional_services_on'] = $stb->areAdditionalServicesOn();
         $data['ls'] = $stb->getPersonalAccount();
 
-        return $this->api->post("stb", $data);
+        return $this->decodeAnswer($this->api->post("stb", $data));
     }
 
 
@@ -264,7 +264,7 @@ class StalkerPortal
         $data['comment'] = $account->getComment();
         $data['end_date'] = $account->getExpireDate();
         $data['account_balance'] = $account->getAccountBalance();
-        return $this->api->put("accounts/".$account->getAccountNumber(), $data);
+        return $this->decodeAnswer($this->api->put("accounts/".$account->getAccountNumber(), $data));
     }
 
     /**
@@ -284,7 +284,7 @@ class StalkerPortal
         $data['comment'] = $account->getComment();
         $data['end_date'] = $account->getExpireDate();
         $data['account_balance'] = $account->getAccountBalance();
-        return $this->api->put("accounts/".$account->getMac(), $data);
+        return $this->decodeAnswer($this->api->put("accounts/".$account->getMac(), $data));
     }
 
     /**accounts
@@ -323,7 +323,7 @@ class StalkerPortal
         $data['end_date'] = $account->getExpireDate();
         $data['account_balance'] = $account->getAccountBalance();
 
-        return $this->api->post($resource, $data);
+        return $this->decodeAnswer($this->api->post($resource, $data));
     }
 
     /**
@@ -374,7 +374,7 @@ nd_date, account_balance of a single customer
         $data['comment'] = $user->getComment();
         $data['end_date'] = $user->getExpireDate();
         $data['account_balance'] = $user->getAccountBalance();
-        return $this->api->put("users/".$user->getMac(), $data);
+        return $this->decodeAnswer($this->api->put("users/".$user->getMac(), $data));
     }
 
     /**
@@ -395,7 +395,7 @@ nd_date, account_balance of a single customer
         $data['comment'] = $user->getComment();
         $data['end_date'] = $user->getExpireDate();
         $data['account_balance'] = $user->getAccountBalance();
-        return $this->api->put("users/".$user->getLogin(), $data);
+        return $this->decodeAnswer($this->api->put("users/".$user->getLogin(), $data));
     }
 
     /**
@@ -426,6 +426,42 @@ nd_date, account_balance of a single customer
     public function addUser(UserInterface $user)
     {
         $this->addAccountOrUser($user, 'users');
+    }
+
+    /**
+     * @param string $id
+     * @param string $message
+     * @param int  seconds
+     * @return bool
+     */
+    protected function sendMessage($id, $message, $ttl)
+    {
+        $encodedMessage = urlencode($message);
+        $seconds = $this->checkValue($ttl, FILTER_VALIDATE_INT);
+        return $this->decodeAnswer($this->api->post("post/$id", ['msg' => $encodedMessage, 'ttl' => $seconds]));
+    }
+
+    /**
+     * @param $accountNumber
+     * @param $message
+     * @param $ttl
+     * @return bool
+     */
+    public function sendMessageByAccountNumber($accountNumber, $message, $ttl)
+    {
+        return $this->sendMessage($accountNumber, $message, $ttl);
+    }
+
+    /**
+     * @param $mac
+     * @param $message
+     * @param $ttl
+     * @return bool
+     */
+    public function sendMessageByMac($mac, $message, $ttl)
+    {
+        $macAddress = $this->checkValue($mac, FILTER_VALIDATE_MAC);
+        return $this->sendMessage($macAddress, $message, $ttl);
     }
 
 
