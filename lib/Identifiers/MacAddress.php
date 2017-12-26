@@ -8,7 +8,7 @@
 namespace Identifiers;
 
 
-class MacAddress extends BaseUserId
+class MacAddress extends BaseUserId implements SingleId
 {
     /**
      * @return mixed

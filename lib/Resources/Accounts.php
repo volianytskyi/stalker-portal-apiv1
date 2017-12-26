@@ -6,20 +6,21 @@
  */
 
 namespace StalkerPortal\ApiV1\Resources;
+
+use Identifiers\AccountNumber;
 use Identifiers\BaseUserId;
-use Identifiers\SingleId;
+use Identifiers\MacAddress;
 use StalkerPortal\ApiV1\Exceptions\StalkerPortalException;
-use StalkerPortal\ApiV1\Interfaces\User as UserInterface;
+use StalkerPortal\ApiV1\Interfaces\Account as AccountInterface;
 
-
-class User extends BaseResource implements IUser
+class Accounts extends BaseResource
 {
     public function getResource()
     {
-        return 'users';
+        return 'accounts';
     }
 
-    public function add(UserInterface $user)
+    public function add(AccountInterface $user)
     {
         if(empty($user->getLogin()))
         {
@@ -42,7 +43,7 @@ class User extends BaseResource implements IUser
         return $this->post($data);
     }
 
-    public function update(UserInterface $user)
+    public function updateOne(AccountInterface $user)
     {
         $data = [];
 
@@ -58,13 +59,34 @@ class User extends BaseResource implements IUser
         return $this->put($user->getMac(), $data);
     }
 
+    public function updateMultiple(AccountInterface $user)
+    {
+        $data = [];
+
+        $data['tariff_plan'] = $user->getTariffPlanExternalId();
+        $data['status'] = $user->getStatus();
+        $data['comment'] = $user->getComment();
+        $data['end_date'] = $user->getExpireDate();
+        $data['account_balance'] = $user->getAccountBalance();
+
+        return $this->put($user->getAccountNumber(), $data);
+    }
+
     public function remove(BaseUserId $id)
     {
         return $this->delete($id);
     }
 
-    public function getOne(SingleId $id)
+    public function getOne(MacAddress $mac)
     {
-        return $this->get($id->getValue());
+        return $this->get($mac->getValue());
     }
+
+    public function getMultiple(AccountNumber $accountNumber = null)
+    {
+        ($accountNumber === null) ? $id = '' : $id = $accountNumber->getValue();
+        return $this->get($id);
+    }
+
+
 }

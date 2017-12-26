@@ -63,27 +63,27 @@ abstract class BaseResource
         }
     }
 
-    final protected function post($resource, array $data)
+    final protected function post(array $data)
     {
         $this->throwIfPortalUnreachable();
-        return $this->decodeAnswer($this->http->post($resource, $data));
+        return $this->decodeAnswer($this->http->post($this->getResource(), $data));
     }
 
-    final protected function put($resource, $data)
+    final protected function put($id, array $data)
     {
         $this->throwIfPortalUnreachable();
-        return $this->decodeAnswer($this->http->put($resource, $data));
+        return $this->decodeAnswer($this->http->put($this->getResource()."/$id", $data));
     }
 
-    final protected function delete($resource, $id)
+    final protected function delete($id)
     {
         $this->throwIfPortalUnreachable();
-        return $this->decodeAnswer($this->http->delete($resource, $id));
+        return $this->decodeAnswer($this->http->delete($this->getResource(), $id));
     }
 
-    final protected function get($resource, $id = '')
+    final protected function get($id = '')
     {
         $this->throwIfPortalUnreachable();
-        return $this->decodeAnswer($this->http->det($resource, $id));
+        return $this->decodeAnswer($this->http->det($this->getResource(), $id));
     }
 }

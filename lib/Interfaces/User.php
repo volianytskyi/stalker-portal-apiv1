@@ -13,6 +13,6 @@ interface User
     public function getMac();
     public function getLogin();
     public function getPassword();
-    public function getPersonalAccount();
+    public function getAccountNumber();
     public function getStatus();
 }
