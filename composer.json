@@ -14,7 +14,8 @@
     }
   ],
   "require": {
-    "volyanytsky/model": ">=0.0.2-dev"
+    "volyanytsky/model": ">=0.0.2-dev",
+    "volyanytsky/http": ">=0.0.1-dev"
   },
   "autoload": {
     "psr-4": {
@@ -25,6 +26,10 @@
     {
       "type": "git",
       "url": "https://github.com/volyanytsky/model/"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/volyanytsky/http/"
     }
   ]
 }

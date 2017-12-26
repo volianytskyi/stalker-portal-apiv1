@@ -7,13 +7,7 @@
 
 namespace StalkerPortal\ApiV1\Interfaces;
 
-
-interface Stb
+interface Stb extends User
 {
-    public function getMac();
-    public function getPersonalAccount();
-    public function getLogin();
-    public function getPassword();
-    public function getStatus();
     public function areAdditionalServicesOn();
 }

@@ -4,8 +4,36 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5ae460ddc9db8cca27c6b0c8b4b2974",
+    "content-hash": "1f70a349c3dedcd21dce95fdb78c88bc",
     "packages": [
+        {
+            "name": "volyanytsky/http",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/volyanytsky/http/",
+                "reference": "6e903d34cc44931477bb224f077be2b0d2fe71f5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Http\\": "src/"
+                }
+            },
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Volyanytsky",
+                    "email": "sergey.volyanytsky@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple HTTP client to make GET, POST, PUT and DELETE requests. Basic authorization is implemented",
+            "homepage": "https://github.com/volyanytsky",
+            "time": "2017-12-24T21:26:45+00:00"
+        },
         {
             "name": "volyanytsky/model",
             "version": "dev-master",
@@ -39,7 +67,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "volyanytsky/model": 20
+        "volyanytsky/model": 20,
+        "volyanytsky/http": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

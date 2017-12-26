@@ -19,7 +19,7 @@ use StalkerPortal\ApiV1\Resources\User;
 use StalkerPortal\ApiV1\Interfaces\User as UserInterface;
 use StalkerPortal\ApiV1\Resources\IUser;
 
-class StalkerPortal
+class StalkerPortalGod
 {
     protected $api;
     public function __construct(Rest $api)

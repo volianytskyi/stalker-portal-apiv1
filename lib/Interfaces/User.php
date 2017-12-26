@@ -1,14 +1,18 @@
 <?php
 /**
  * User: volyanytsky
- * Date: 20.12.17
- * Time: 20:45
+ * Date: 26.12.17
+ * Time: 18:09
  */
 
 namespace StalkerPortal\ApiV1\Interfaces;
-use StalkerPortal\ApiV1\Interfaces\Account;
 
-interface User extends Account
+
+interface User
 {
-
+    public function getMac();
+    public function getLogin();
+    public function getPassword();
+    public function getPersonalAccount();
+    public function getStatus();
 }

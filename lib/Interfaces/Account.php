@@ -7,16 +7,11 @@
 
 namespace StalkerPortal\ApiV1\Interfaces;
 
-interface Account
+interface Account extends User
 {
-    public function getLogin();
-    public function getPassword();
-    public function getFullName();
-    public function getAccountNumber();
     public function getTariffPlanExternalId();
-    public function getStatus();
-    public function getMac();
     public function getComment();
     public function getExpireDate();
     public function getAccountBalance();
+    public function getFullName();
 }
