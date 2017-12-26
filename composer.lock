@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f70a349c3dedcd21dce95fdb78c88bc",
+    "content-hash": "6c9c54969e351513b70cebee72e5840c",
     "packages": [
         {
             "name": "volyanytsky/http",
@@ -33,41 +33,12 @@
             "description": "Simple HTTP client to make GET, POST, PUT and DELETE requests. Basic authorization is implemented",
             "homepage": "https://github.com/volyanytsky",
             "time": "2017-12-24T21:26:45+00:00"
-        },
-        {
-            "name": "volyanytsky/model",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/volyanytsky/model/",
-                "reference": "23b1a51ddee53d7b8db70e8cbd80897aae79e93e"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Model\\": "src/"
-                }
-            },
-            "license": [
-                "WTFPL"
-            ],
-            "authors": [
-                {
-                    "name": "Sergey Volyanytsky",
-                    "email": "sergey.volyanytsky@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Abstract model with array of properties and their filters",
-            "homepage": "https://github.com/volyanytsky",
-            "time": "2017-12-19T16:10:59+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "volyanytsky/model": 20,
         "volyanytsky/http": 20
     },
     "prefer-stable": false,
