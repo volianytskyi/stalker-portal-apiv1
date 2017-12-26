@@ -1,16 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: mousemaster
  * Date: 22.12.17
  * Time: 15:28
  */
 
 namespace Identifiers;
-use Identifiers\BaseResourceId as Id;
 
-
-class IntegerId extends Id
+abstract class BaseIntegerId extends BaseResourceId
 {
 
     /**

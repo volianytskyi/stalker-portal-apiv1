@@ -6,10 +6,9 @@
  */
 
 namespace Identifiers;
-use Identifiers\BaseResourceId as Id;
 
 
-class MacAddress extends Id
+class MacAddress extends BaseUserId
 {
     /**
      * @return mixed

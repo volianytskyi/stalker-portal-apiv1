@@ -6,10 +6,8 @@
  */
 
 namespace Identifiers;
-use Identifiers\BaseResourceId as Id;
 
-
-class StringId extends Id
+abstract class BaseStringId extends BaseResourceId
 {
 
     /**
