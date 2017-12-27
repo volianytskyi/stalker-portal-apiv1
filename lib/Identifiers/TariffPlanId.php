@@ -9,7 +9,10 @@
 namespace Identifiers;
 
 
-class TariffPlanId extends BaseTariffId
+class TariffPlanId extends BaseResourceId implements ITariffs
 {
-
+    protected function getFilter()
+    {
+        return FILTER_SANITIZE_STRING;
+    }
 }

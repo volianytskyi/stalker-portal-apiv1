@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: mousemaster
  * Date: 27.12.17
- * Time: 11:28
+ * Time: 14:32
  */
 
 namespace Identifiers;
 
 
-abstract class SingleUserId extends BaseUserId
+interface IStb
 {
-
+    public function getValue();
 }

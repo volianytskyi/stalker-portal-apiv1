@@ -9,7 +9,7 @@
 namespace Identifiers;
 
 
-class AccountNumber extends MultipleUsersId
+class AccountNumber extends BaseResourceId implements IStb, IUsers, IAccounts, IStbMsg, ISendEvent, IStbModules, IItvSubscription, IAccountSubscription
 {
 
     /**

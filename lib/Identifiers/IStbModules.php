@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: mousemaster
  * Date: 27.12.17
- * Time: 11:29
+ * Time: 14:32
  */
 
 namespace Identifiers;
 
 
-abstract class MultipleUsersId extends BaseUserId
+interface IStbModules
 {
-
+    public function getValue();
 }

@@ -8,7 +8,7 @@
 namespace StalkerPortal\ApiV1\Resources;
 
 use Identifiers\AccountNumber;
-use Identifiers\BaseUserId;
+use Identifiers\IStb;
 use Identifiers\MacAddress;
 use StalkerPortal\ApiV1\Interfaces\Stb as StbInterface;
 
@@ -21,6 +21,11 @@ class Stb extends BaseResource
 
     public function add(StbInterface $user)
     {
+        if($user === null)
+        {
+            return false;
+        }
+
         $data = [];
 
         $data['mac'] = $user->getMac();
@@ -37,6 +42,11 @@ class Stb extends BaseResource
 
     public function updateByMac(StbInterface $user)
     {
+        if($user === null)
+        {
+            return false;
+        }
+
         $data = [];
 
         $data['status'] = $user->getStatus();
@@ -51,6 +61,11 @@ class Stb extends BaseResource
 
     public function updateByAccountNumber(StbInterface $user)
     {
+        if($user === null)
+        {
+            return false;
+        }
+
         $data = [];
 
         $data['status'] = $user->getStatus();
@@ -61,21 +76,29 @@ class Stb extends BaseResource
         return $this->put($user->getAccountNumber(), $data);
     }
 
-    public function remove(BaseUserId $id)
+    public function remove(IStb $id)
     {
-        return $this->delete($id);
+        if($id === null)
+        {
+            return false;
+        }
+
+        return $this->delete($id->getValue());
     }
 
-    public function getStb(MacAddress $mac)
+    public function getStb(IStb $id)
     {
-        return $this->get($mac->getValue());
-    }
+        if($id === null)
+        {
+            return null;
+        }
 
-    public function getStbs(AccountNumber $accountNumber = null)
-    {
-        ($accountNumber === null) ? $id = '' : $id = $accountNumber->getValue();
         return $this->get($id);
     }
 
+    public function getAll()
+    {
+        return $this->get('');
+    }
 
 }

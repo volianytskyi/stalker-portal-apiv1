@@ -8,7 +8,7 @@
 namespace Identifiers;
 
 
-class Login extends SingleUserId
+class Login extends BaseResourceId implements IUsers
 {
 
     /**

@@ -9,7 +9,10 @@
 namespace Identifiers;
 
 
-class ServicePackageId extends BaseTariffId
+class ServicePackageId extends BaseResourceId implements IServicesPackage
 {
-
+    protected function getFilter()
+    {
+        return FILTER_SANITIZE_STRING;
+    }
 }

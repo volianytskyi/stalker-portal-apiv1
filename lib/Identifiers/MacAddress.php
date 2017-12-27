@@ -8,7 +8,7 @@
 namespace Identifiers;
 
 
-class MacAddress extends SingleUserId
+class MacAddress extends BaseResourceId implements IStb, IUsers, IAccounts, IStbMsg, ISendEvent, IStbModules, IItvSubscription, IAccountSubscription
 {
     /**
      * @return mixed

@@ -9,7 +9,10 @@
 namespace Identifiers;
 
 
-class ChannelId extends BaseIntId
+class ChannelId extends BaseResourceId implements IItv
 {
-
+    protected function getFilter()
+    {
+        return FILTER_SANITIZE_NUMBER_INT;
+    }
 }
