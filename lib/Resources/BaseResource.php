@@ -63,7 +63,7 @@ abstract class BaseResource
         }
     }
 
-    final protected function post(array $data)
+    protected function post(array $data)
     {
         $this->throwIfPortalUnreachable();
         return $this->decodeAnswer($this->http->post($this->getResource(), $data));
