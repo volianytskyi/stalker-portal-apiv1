@@ -1,6 +1,6 @@
 <?php
 /**
- * User: volyanytsky
+ * Users: volyanytsky
  * Date: 19.12.17
  * Time: 17:52
  */
@@ -85,5 +85,16 @@ abstract class BaseResource
     {
         $this->throwIfPortalUnreachable();
         return $this->decodeAnswer($this->http->det($this->getResource(), $id));
+    }
+
+    final protected function throwIfRequiredFieldsEmpty(array $data)
+    {
+        foreach ($data as $key => $value)
+        {
+            if(empty($value))
+            {
+                throw new StalkerPortalException($this->resource.":".$key . " is empty");
+            }
+        }
     }
 }

@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: mousemaster
  * Date: 27.12.17
- * Time: 11:25
+ * Time: 11:31
  */
 
 namespace Identifiers;
 
 
-abstract class BaseUserId extends BaseResourceId
+class ChannelId extends BaseIntId
 {
 
 }

@@ -1,15 +1,16 @@
 <?php
 /**
- * User: volyanytsky
- * Date: 22.12.17
- * Time: 15:28
+ * Created by PhpStorm.
+ * User: mousemaster
+ * Date: 27.12.17
+ * Time: 11:27
  */
 
 namespace Identifiers;
 
-abstract class BaseStringId extends BaseResourceId
-{
 
+abstract class BaseTariffId extends BaseResourceId
+{
     /**
      * @return mixed
      */

@@ -1,31 +1,19 @@
 <?php
 /**
- * User: volyanytsky
- * Date: 20.12.17
- * Time: 19:32
+ * Created by PhpStorm.
+ * User: mousemaster
+ * Date: 27.12.17
+ * Time: 12:21
  */
 
 namespace StalkerPortal\ApiV1\Resources;
-use Identifiers\BaseUserId;
-use Identifiers\SingleId;
-use StalkerPortal\ApiV1\Exceptions\StalkerPortalException;
-use StalkerPortal\ApiV1\Interfaces\User as UserInterface;
 
+use StalkerPortal\ApiV1\Interfaces\Account as AccountInterface;
 
-class User extends BaseResource implements IUser
+abstract class BaseUser extends BaseResource
 {
-    public function getResource()
+    public function add(AccountInterface $user)
     {
-        return 'users';
-    }
-
-    public function add(UserInterface $user)
-    {
-        if(empty($user->getLogin()))
-        {
-            throw new StalkerPortalException($this->resource . ": login is required");
-        }
-
         $data = [];
 
         $data['stb_mac'] = $user->getMac();
@@ -42,7 +30,7 @@ class User extends BaseResource implements IUser
         return $this->post($data);
     }
 
-    public function update(UserInterface $user)
+    public function updateUser(AccountInterface $user)
     {
         $data = [];
 
@@ -56,15 +44,5 @@ class User extends BaseResource implements IUser
         $data['account_balance'] = $user->getAccountBalance();
 
         return $this->put($user->getMac(), $data);
-    }
-
-    public function remove(BaseUserId $id)
-    {
-        return $this->delete($id);
-    }
-
-    public function getOne(SingleId $id)
-    {
-        return $this->get($id->getValue());
     }
 }

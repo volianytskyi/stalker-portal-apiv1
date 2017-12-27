@@ -1,6 +1,6 @@
 <?php
 /**
- * User: volyanytsky
+ * Users: volyanytsky
  * Date: 19.12.2017
  * Time: 00:14
  */
@@ -30,10 +30,12 @@ class Stb extends BaseResource
         $data['additional_services_on'] = $user->areAdditionalServicesOn();
         $data['ls'] = $user->getAccountNumber();
 
+        //$this->throwIfRequiredFieldsEmpty(['login' => $data['login']]);
+
         return $this->post($data);
     }
 
-    public function updateOne(StbInterface $user)
+    public function updateByMac(StbInterface $user)
     {
         $data = [];
 
@@ -42,15 +44,19 @@ class Stb extends BaseResource
         $data['additional_services_on'] = $user->areAdditionalServicesOn();
         $data['ls'] = $user->getAccountNumber();
 
+        //$this->throwIfRequiredFieldsEmpty(['mac' => $user->getMac()]);
+
         return $this->put($user->getMac(), $data);
     }
 
-    public function updateMultiple(StbInterface $user)
+    public function updateByAccountNumber(StbInterface $user)
     {
         $data = [];
 
         $data['status'] = $user->getStatus();
         $data['additional_services_on'] = $user->areAdditionalServicesOn();
+
+        //$this->throwIfRequiredFieldsEmpty(['account_number' => $user->getAccountNumber()]);
 
         return $this->put($user->getAccountNumber(), $data);
     }
@@ -60,12 +66,12 @@ class Stb extends BaseResource
         return $this->delete($id);
     }
 
-    public function getOne(MacAddress $mac)
+    public function getStb(MacAddress $mac)
     {
         return $this->get($mac->getValue());
     }
 
-    public function getMultiple(AccountNumber $accountNumber = null)
+    public function getStbs(AccountNumber $accountNumber = null)
     {
         ($accountNumber === null) ? $id = '' : $id = $accountNumber->getValue();
         return $this->get($id);
