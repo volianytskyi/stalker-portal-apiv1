@@ -9,9 +9,6 @@
 namespace StalkerPortal\ApiV1\Resources;
 
 
-use Identifiers\AccountNumber;
-use Identifiers\MacAddress as Mac;
-
 class StbMsg extends BaseResource
 {
 
@@ -20,7 +17,7 @@ class StbMsg extends BaseResource
         return 'stb_msg';
     }
 
-    private function sendMessage($id, $message, $ttl)
+    public function sendMessage($id, $message, $ttl)
     {
         $data = [
             'msg' => urlencode($message),
@@ -29,15 +26,4 @@ class StbMsg extends BaseResource
 
         return $this->post($id, $data);
     }
-
-    public function sendMessageToUser(Mac $mac, $message, $ttl)
-    {
-        return $this->sendMessage($mac->getValue(), $message, $ttl);
-    }
-
-    public function sendMessageToAccount(AccountNumber $accountNumber, $message, $ttl)
-    {
-        return $this->sendMessage($accountNumber->getValue(), $message, $ttl);
-    }
-
 }

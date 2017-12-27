@@ -8,11 +8,13 @@
 
 namespace StalkerPortal\ApiV1\Resources;
 
+use \DateTime;
+use StalkerPortal\ApiV1\Exceptions\StalkerPortalException;
 use StalkerPortal\ApiV1\Interfaces\Account as AccountInterface;
 
-abstract class BaseUser extends BaseResource
+abstract class BaseUsers extends BaseStb
 {
-    public function add(AccountInterface $user)
+    final public function add(AccountInterface $user)
     {
         $data = [];
 
@@ -30,7 +32,7 @@ abstract class BaseUser extends BaseResource
         return $this->post($data);
     }
 
-    public function updateUser(AccountInterface $user)
+    final public function updateUser(AccountInterface $user)
     {
         $data = [];
 
@@ -44,5 +46,20 @@ abstract class BaseUser extends BaseResource
         $data['account_balance'] = $user->getAccountBalance();
 
         return $this->put($user->getMac(), $data);
+    }
+
+    final public function switchTariffPlan($id)
+    {
+        return $this->put($id, ['tariff_plan' => $id]);
+    }
+
+    final public function setExpireDate($id, $date)
+    {
+        if(DateTime::createFromFormat("Y-m-d H:i:s", $date) === false)
+        {
+            throw new StalkerPortalException($date .": incorrect format. STB expire date must be Y-m-d H:i:s");
+        }
+
+        return $this->put($id, $date);
     }
 }

@@ -6,28 +6,17 @@
  */
 
 namespace StalkerPortal\ApiV1\Resources;
-use Identifiers\SingleUserId;
 
 
-class Users extends BaseResource
+class Users extends BaseUsers
 {
     public function getResource()
     {
         return 'users';
     }
 
-    public function deleteUser(SingleUserId $id)
+    public function isLoginUnique($login)
     {
-        return $this->delete($id->getValue());
-    }
-
-    public function getUser(SingleUserId $id)
-    {
-        return $this->get($id->getValue());
-    }
-
-    public function getUsers()
-    {
-        return $this->get('');
+        return $this->isMacUnique($login);
     }
 }
