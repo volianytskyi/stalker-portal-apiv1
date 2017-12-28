@@ -55,11 +55,11 @@ abstract class BaseUsers extends BaseStb
 
     final public function setExpireDate($id, $date)
     {
-        if(DateTime::createFromFormat("Y-m-d H:i:s", $date) === false)
+        if(DateTime::createFromFormat("Y-m-d", $date) === false)
         {
-            throw new StalkerPortalException($date .": incorrect format. STB expire date must be Y-m-d H:i:s");
+            throw new StalkerPortalException($date .": incorrect format. STB expire date must be Y-m-d");
         }
 
-        return $this->put($id, $date);
+        return $this->put($id, ['end_date' => $date]);
     }
 }

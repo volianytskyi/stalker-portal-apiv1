@@ -20,10 +20,11 @@ class StbMsg extends BaseResource
     public function sendMessage($id, $message, $ttl)
     {
         $data = [
-            'msg' => urlencode($message),
+            'msg' => $message,
             'ttl' => (int)$ttl
         ];
 
-        return $this->post($id, $data);
+        $this->throwIfPortalUnreachable();
+        return $this->decodeAnswer($this->http->post($this->getResource()."/$id", $data));
     }
 }

@@ -21,7 +21,7 @@ class SendEvent extends BaseResource
     {
         $data = [
             'event' => 'send_msg',
-            'msg' => urlencode($message),
+            'msg' => $message,
             'ttl' => (int)$ttl,
             'need_reboot' => $reboot
         ];

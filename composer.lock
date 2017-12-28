@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/volyanytsky/http/",
-                "reference": "6e903d34cc44931477bb224f077be2b0d2fe71f5"
+                "reference": "b0d23d8988572949fd4a6286f1c79bb0121ac8dc"
             },
             "type": "library",
             "autoload": {
@@ -32,7 +32,7 @@
             ],
             "description": "Simple HTTP client to make GET, POST, PUT and DELETE requests. Basic authorization is implemented",
             "homepage": "https://github.com/volyanytsky",
-            "time": "2017-12-24T21:26:45+00:00"
+            "time": "2017-12-28T12:25:21+00:00"
         }
     ],
     "packages-dev": [],
