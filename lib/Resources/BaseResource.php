@@ -84,7 +84,7 @@ abstract class BaseResource
     final protected function get($id = '')
     {
         $this->throwIfPortalUnreachable();
-        return $this->decodeAnswer($this->http->det($this->getResource(), $id));
+        return $this->decodeAnswer($this->http->get($this->getResource(), $id));
     }
 
     final protected function throwIfRequiredFieldsEmpty(array $data)
