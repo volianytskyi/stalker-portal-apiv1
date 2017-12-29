@@ -5,12 +5,20 @@
 require_once '../vendor/autoload.php';
 
 use Http\HttpClient as Http; //https://github.com/volyanytsky/http
-use StalkerPortal\ApiV1\Resources\Accounts; //https://wiki.infomir.eu/rus/ministra-tv-platform/rukovodstvo-po-nastrojke-ministra/rest-api-v1#RESTAPIv1-ACCOUNTS1
-use StalkerPortal\ApiV1\Interfaces\Account;
-use StalkerPortal\ApiV1\Resources\SendEvent; //https://wiki.infomir.eu/rus/ministra-tv-platform/rukovodstvo-po-nastrojke-ministra/rest-api-v1#RESTAPIv1-SEND_EVENT
-use StalkerPortal\ApiV1\Resources\Tariffs; //https://wiki.infomir.eu/eng/ministra-tv-platform/ministra-setup-guide/rest-api-v1#RESTAPIv1-TARIFFS
 
-class User implements Account //need to implement Account interface to use Accounts::add() and Accounts::update()
+//https://wiki.infomir.eu/rus/ministra-tv-platform/rukovodstvo-po-nastrojke-ministra/rest-api-v1#RESTAPIv1-ACCOUNTS1
+use StalkerPortal\ApiV1\Resources\Accounts; 
+
+use StalkerPortal\ApiV1\Interfaces\Account;
+
+//https://wiki.infomir.eu/rus/ministra-tv-platform/rukovodstvo-po-nastrojke-ministra/rest-api-v1#RESTAPIv1-SEND_EVENT
+use StalkerPortal\ApiV1\Resources\SendEvent; 
+
+//https://wiki.infomir.eu/eng/ministra-tv-platform/ministra-setup-guide/rest-api-v1#RESTAPIv1-TARIFFS
+use StalkerPortal\ApiV1\Resources\Tariffs; 
+
+//need to implement Account interface to use Accounts::add() and Accounts::update()
+class User implements Account 
 {
     public $mac;
     public $login;
