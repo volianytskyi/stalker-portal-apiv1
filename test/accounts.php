@@ -18,6 +18,7 @@ use StalkerPortal\ApiV1\Resources\Users;
 use StalkerPortal\ApiV1\Resources\Tariffs;
 use StalkerPortal\ApiV1\Resources\SendEvent;
 use StalkerPortal\ApiV1\Resources\StbMsg;
+use StalkerPortal\ApiV1\Resources\Itv;
 
 class User implements Account
 {
@@ -91,9 +92,14 @@ $pass = 'secret_pass';
 try {
     $http = new Http($url, $user, $pass);
 
-    $event = new SendEvent($http);
+//    $event = new SendEvent($http);
+//
+//    $res = $event->sendMessage('00:1a:79:34:c3:db', 'хуй хуй хуй перезагрузка', 300, true);
 
-    $res = $event->sendMessage('00:1a:79:34:c3:db', 'хуй хуй хуй перезагрузка', 300, true);
+    $itv = new Itv($http);
+
+    $res = $itv->select();
+
     print_r($res); echo "\n"; exit;
 
 
