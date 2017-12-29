@@ -14,7 +14,8 @@
     }
   ],
   "require": {
-    "volyanytsky/http": ">=0.0.1-dev"
+    "php":">=5.6.0",
+    "volyanytsky/http": ">=0.0.2-dev"
   },
   "autoload": {
     "psr-4": {
