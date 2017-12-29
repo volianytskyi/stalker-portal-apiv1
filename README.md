@@ -1,23 +1,35 @@
 # Unofficial [Stalker Portal REST API v1](https://wiki.infomir.eu/eng/ministra-tv-platform/ministra-setup-guide/rest-api-v1) SDK
 
+## Installation
+composer:
+```
+"require": {
+    "volyanytsky/stalker-portal-apiv1": ">=0.0.1-dev"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/volyanytsky/stalker-portal-apiv1/"
+    }
+  ]
+}
+```
+
 ## Examples
 ```php
 require_once '../vendor/autoload.php';
 
 use Http\HttpClient as Http; //https://github.com/volyanytsky/http
 
-//https://wiki.infomir.eu/rus/ministra-tv-platform/rukovodstvo-po-nastrojke-ministra/rest-api-v1#RESTAPIv1-ACCOUNTS1
-use StalkerPortal\ApiV1\Resources\Accounts; 
+//resources https://wiki.infomir.eu/rus/ministra-tv-platform/rukovodstvo-po-nastrojke-ministra/rest-api-v1
+
+use StalkerPortal\ApiV1\Resources\Accounts; //ACCOUNTS 
+use StalkerPortal\ApiV1\Resources\SendEvent; //SEND_EVENT
+use StalkerPortal\ApiV1\Resources\Tariffs; //TARIFFS
 
 use StalkerPortal\ApiV1\Interfaces\Account;
-
-//https://wiki.infomir.eu/rus/ministra-tv-platform/rukovodstvo-po-nastrojke-ministra/rest-api-v1#RESTAPIv1-SEND_EVENT
-use StalkerPortal\ApiV1\Resources\SendEvent; 
-
-//https://wiki.infomir.eu/eng/ministra-tv-platform/ministra-setup-guide/rest-api-v1#RESTAPIv1-TARIFFS
-use StalkerPortal\ApiV1\Resources\Tariffs; 
-
 //need to implement Account interface to use Accounts::add() and Accounts::update()
+
 class User implements Account 
 {
     public $mac;
@@ -82,7 +94,8 @@ class User implements Account
     }
 }
 
-//values from the Stalker Portal configuration file https://wiki.infomir.eu/eng/ministra-tv-platform/ministra-installation-guide/configuration-file
+//values from the Stalker Portal configuration file 
+//https://wiki.infomir.eu/eng/ministra-tv-platform/ministra-installation-guide/configuration-file
 $url = 'http://10.118.41.221/stalker_portal/api'; //stalker_api_url
 $user = 'stalker'; //api_auth_login
 $pass = 'secret_pass'; //api_auth_password
