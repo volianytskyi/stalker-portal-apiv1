@@ -1,7 +1,7 @@
 {
   "name": "volyanytsky/stalker-portal-apiv1",
   "description": "Infomir Stalker Portal (Ministra) REST API v1 Library",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "library",
   "homepage": "https://github.com/volyanytsky",
   "time": "2017-12-19",
@@ -15,7 +15,7 @@
   ],
   "require": {
     "php":">=5.6.0",
-    "volyanytsky/http": ">=0.0.2-dev"
+    "volyanytsky/http": ">=0.0.3"
   },
   "autoload": {
     "psr-4": {
