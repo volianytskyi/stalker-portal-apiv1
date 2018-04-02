@@ -17,10 +17,10 @@ abstract class BaseStb extends BaseResource
         return $this->delete($id);
     }
 
-    final public function select(...$identifiers)
+    final public function select()
     {
-        $id = implode(',', $identifiers);
-        return $this->get($id);
+        $identifiers = implode(',', func_get_args());
+        return $this->get($identifiers);
     }
 
     final public function switchStatus($id, $status)
