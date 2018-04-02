@@ -1,18 +1,27 @@
 # Unofficial [Stalker Portal REST API v1](https://wiki.infomir.eu/eng/ministra-tv-platform/ministra-setup-guide/rest-api-v1) SDK
 
 ## Installation
-composer:
+composer.json:
 ```
+{
+"minimum-stability": "dev",
 "require": {
-    "volyanytsky/stalker-portal-apiv1": ">=0.0.1-dev"
+    "volyanytsky/stalker-portal-apiv1": ">=0.0.5",
+    "volyanytsky/http": "dev-master"
   },
   "repositories": [
     {
       "type": "git",
       "url": "https://github.com/volyanytsky/stalker-portal-apiv1/"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/volyanytsky/http/"
     }
+
   ]
 }
+
 ```
 
 ## Examples
