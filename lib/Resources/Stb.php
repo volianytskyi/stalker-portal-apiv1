@@ -52,4 +52,9 @@ class Stb extends BaseStb
         return $this->put($user->getAccountNumber(), $data);
     }
 
+    public function setAccountNumber($mac, $accountNumber)
+    {
+      return $this->put($mac, ['ls' => $accountNumber]);
+    }
+
 }

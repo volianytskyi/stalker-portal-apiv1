@@ -28,6 +28,7 @@ abstract class BaseUsers extends BaseStb
         $data['comment'] = $user->getComment();
         $data['end_date'] = $user->getExpireDate();
         $data['account_balance'] = $user->getAccountBalance();
+	    $data['phone'] = $user->getPhone();
 
         return $this->post($data);
     }
@@ -44,22 +45,55 @@ abstract class BaseUsers extends BaseStb
         $data['comment'] = $user->getComment();
         $data['end_date'] = $user->getExpireDate();
         $data['account_balance'] = $user->getAccountBalance();
+	    $data['phone'] = $user->getPhone();
 
-        return $this->put($user->getMac(), $data);
+        if(!empty($user->getLogin()))
+        {
+          $data['stb_mac'] = $user->getMac();
+          $userId = $user->getLogin();
+        }
+
+        else
+        {
+          $userId = $user->getMac();
+        }
+
+        return $this->put($userId, $data);
     }
 
-    final public function switchTariffPlan($id)
+    final public function switchTariffPlan($id, $tariffPlanId)
     {
-        return $this->put($id, ['tariff_plan' => $id]);
+        return $this->put($id, ['tariff_plan' => $tariffPlanId]);
     }
 
     final public function setExpireDate($id, $date)
     {
-        if(DateTime::createFromFormat("Y-m-d", $date) === false)
+        if(DateTime::createFromFormat("Y-m-d H:i:s", $date) === false)
         {
-            throw new StalkerPortalException($date .": incorrect format. STB expire date must be Y-m-d");
+            throw new StalkerPortalException($date .": incorrect format. User expire date must be Y-m-d H:i:s");
         }
 
         return $this->put($id, ['end_date' => $date]);
+    }
+
+    final public function setComment($id, $comment)
+    {
+        return $this->put($id, ['comment' => $comment]);
+    }
+
+    final public function setName($id, $name)
+    {
+        return $this->put($id, ['full_name' => $name]);
+    }
+
+
+    final public function setPassword($id, $password)
+    {
+        if(!isset($password))
+        {
+            throw new StalkerPortalException("password must be set");
+        }
+
+        return $this->put($id, ['password' => $password]);
     }
 }
