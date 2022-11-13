@@ -19,4 +19,5 @@ interface Account
     public function getExpireDate();
     public function getAccountBalance();
     public function getFullName();
+    public function getPhone();
 }
